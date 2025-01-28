@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # dotenv environment variable files
-.env
+environment/.env
 
 node_modules
 dist
