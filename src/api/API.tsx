@@ -8,8 +8,11 @@ const searchGithub = async () => {
         headers: {
           Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
         },
+    
       }
     );
+
+    console.log (import.meta.env.VITE_GITHUB_TOKEN);
     // console.log('Response:', response);
     const data = await response.json();
     if (!response.ok) {
@@ -18,7 +21,7 @@ const searchGithub = async () => {
     // console.log('Data:', data);
     return data;
   } catch (err) {
-    // console.log('an error occurred', err);
+    console.log('an error occurred', err);
     return [];
   }
 };

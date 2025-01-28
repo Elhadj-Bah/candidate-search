@@ -14,11 +14,11 @@ const Nav = () => {
           </Link> 
         </li>
 
-        <li>
+        {/* <li>
           <Link to="/ErrorPage" className={currentPage === '/ErrorPage' ? 'active' : ''}>
             Error Page
           </Link>
-        </li>
+        </li> */}
 
         <li>
           <Link to="/CandidateSearch" className={currentPage === '/CandidateSearch' ? 'active' : ''}>
