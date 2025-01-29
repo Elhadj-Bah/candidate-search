@@ -54,7 +54,7 @@ const CandidateSearch: React.FC = () => {
   
       <button onClick={handleSaveCandidate}>Save Candidate</button>
       <button onClick={handleNextCandidate}>Next Candidate</button>
-      {currentCandidate && <CandidateCard />}
+      {currentCandidate && <CandidateCard candidate={currentCandidate} saveCandidate={handleSaveCandidate} nextCandidate={handleNextCandidate} />}
     </div>
   );
   

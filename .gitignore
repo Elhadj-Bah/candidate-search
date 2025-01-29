@@ -8,11 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # dotenv environment variable files
-<<<<<<< HEAD
-environment/.env
-=======
-.env
->>>>>>> 3415b3a (update .env file, upload token & update CandidateSearch page)
 
 node_modules
 dist
