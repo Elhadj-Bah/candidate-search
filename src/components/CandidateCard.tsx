@@ -1,36 +1,47 @@
 import { Candidate } from "../interfaces/Candidate.interface";
 
+interface CandidateCardProps {
+  candidate: Candidate;
+  saveCandidate: (candidate: Candidate) => void;
+  nextCandidate: () => void;
+}
 
-  interface CandidateCardProps {  
-    candidate: Candidate;
-    saveCandidate: (candidate: Candidate) => void;
-    nextCandidate: () => void;
- }
-
-export function CandidateCard({ candidate, saveCandidate, nextCandidate }: CandidateCardProps) {
+export function CandidateCard({
+  candidate,
+  saveCandidate,
+  nextCandidate,
+}: CandidateCardProps) {
   return (
     <div>
       <h1>Candidate</h1>
-      <ul>
-  
-       <li key={candidate.id}>
-       <img src={candidate.avatar} alt={candidate.firstName} />
-           <a href={candidate.html_url} target="_blank" rel="noreferrer">
-              {candidate.firstName} {candidate.lastName}
-           </a>
-            <p>{candidate.userName}</p> 
-             <p>{candidate.location}</p>
-               <p>{candidate.avatar}</p>
-            <p>{candidate.email}</p>
-            <p>{candidate.company}</p>
-        </li>
 
-      </ul>
+      {candidate ? (
+        <div>
+          <ul>
+            <li key={candidate.id}>
+              {candidate.avatar_url && <img src={candidate.avatar_url} />}
 
-      <button onClick={() => saveCandidate(candidate)}>Save</button>
-      <button onClick={nextCandidate}>Next</button>
+              {candidate.html_url && (
+                <a href={candidate.html_url} target="_blank" rel="noreferrer">
+                  {candidate.name}
+                </a>
+              )}
+              <p>{candidate.name}</p>
+              <p>{candidate.location}</p>
+              <p>{candidate.avatar_url}</p>
+              <p>{candidate.email}</p>
+              <p>{candidate.bio}</p>
+              <p>{candidate.company}</p>
+            </li>
+          </ul>
+
+          <button onClick={() => saveCandidate(candidate)}>Save</button>
+          <button onClick={() => nextCandidate()}>Next</button>
+        </div>
+      ) : (
+        <h2>No current candidate</h2>
+      )}
     </div>
   );
-
 }
 export default CandidateCard;

@@ -1,25 +1,31 @@
-import { useState, useEffect } from 'react';
-import { searchGithub } from '../api/API';
-import CandidateCard from '../components/CandidateCard';
-import { Candidate } from '../interfaces/Candidate.interface';
+import { useState, useEffect } from "react";
+import { searchGithub } from "../api/API";
+import CandidateCard from "../components/CandidateCard";
+import { Candidate } from "../interfaces/Candidate.interface";
 
 const CandidateSearch: React.FC = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [currentCandidate, setCurrentCandidate] = useState<Candidate>({
+    id: null,
+    login: null,
+    email: null,
+    html_url: null,
+    name: null,
+    bio: null,
+    company: null,
+    location: null,
+    avatar_url: null,
+  });
+
   const [currentCandidateIndex, setCurrentCandidateIndex] = useState<number>(0);
-  const [savedCandidates, setSavedCandidates] = useState<Candidate[]>(() => {
+  const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]);
 
- // Retrieve saved candidates from local storage
-
-  const saved = localStorage.getItem('savedCandidates');
-  return saved ? JSON.parse(saved) : [];
-  
-});
-  
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
         const data = await searchGithub();
         setCandidates(data);
+        setCurrentCandidate(data[currentCandidateIndex]);
         console.log(data);
       } catch (error) {
         console.error(error);
@@ -28,10 +34,9 @@ const CandidateSearch: React.FC = () => {
     fetchCandidates();
   }, []);
 
- 
   useEffect(() => {
     const saveCandidates = () => {
-      localStorage.setItem('savedCandidates', JSON.stringify(savedCandidates));
+      localStorage.setItem("savedCandidates", JSON.stringify(savedCandidates));
     };
     saveCandidates();
   }, [savedCandidates]);
@@ -43,21 +48,26 @@ const CandidateSearch: React.FC = () => {
   };
 
   const handleNextCandidate = () => {
-    setCurrentCandidateIndex((prevIndex) => (prevIndex + 1) % candidates.length);
-  };  
+    console.log("Next Candidate");
+    if (currentCandidateIndex === candidates.length - 1) {
+      console.log("Out Of Candidates");
+      setCurrentCandidateIndex(0);
+    }
+    setCurrentCandidateIndex((prevIndex) => prevIndex + 1);
+    setCurrentCandidate(candidates[currentCandidateIndex]);
+  };
 
-
-  const currentCandidate = candidates[currentCandidateIndex];
   return (
     <div>
       <h1>Candidate Search</h1>
-  
-      <button onClick={handleSaveCandidate}>Save Candidate</button>
-      <button onClick={handleNextCandidate}>Next Candidate</button>
-      {currentCandidate && <CandidateCard candidate={currentCandidate} saveCandidate={handleSaveCandidate} nextCandidate={handleNextCandidate} />}
+      {
+        <CandidateCard
+          candidate={currentCandidate}
+          saveCandidate={handleSaveCandidate}
+          nextCandidate={handleNextCandidate}
+        />
+      }
     </div>
   );
-  
-
-}
+};
 export default CandidateSearch;
