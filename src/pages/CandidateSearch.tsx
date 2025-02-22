@@ -43,6 +43,7 @@ const CandidateSearch: React.FC = () => {
 
   const handleSaveCandidate = () => {
     const currentCandidate = candidates[currentCandidateIndex];
+    console.log("Save Candidate", currentCandidate);
     setSavedCandidates([...savedCandidates, currentCandidate]);
     handleNextCandidate();
   };

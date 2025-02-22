@@ -23,7 +23,7 @@ export function CandidateCard({
 
               {candidate.html_url && (
                 <a href={candidate.html_url} target="_blank" rel="noreferrer">
-                  {candidate.name}
+                  {candidate.login}
                 </a>
               )}
               <p>{candidate.name}</p>

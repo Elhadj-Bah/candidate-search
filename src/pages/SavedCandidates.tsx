@@ -22,24 +22,32 @@ const SavedCandidates: React.FC = () => {
         <h2>No saved candidates</h2>
       ) : (
         <ul>
-          {savedCandidates.map((candidate: Candidate) => (
-            <li key={candidate.id}>
-              {candidate.avatar_url && candidate.name && (
-                <img src={candidate?.avatar_url} alt={candidate?.name} />
-              )}
+          {savedCandidates.map(
+            (candidate: Candidate) => (
+              console.log("Candidate", candidate),
+              (
+                <li key={candidate.id}>
+                  {candidate?.avatar_url && candidate?.login && (
+                    <img src={candidate?.avatar_url} alt={candidate?.login} />
+                  )}
 
-              {candidate.html_url && (
-                <a href={candidate?.html_url} target="_blank" rel="noreferrer">
-                  {candidate.name} {candidate.bio}
-                </a>
-              )}
-              <p>{candidate.login}</p>
-              <p>{candidate.location}</p>
-              <p>{candidate.avatar_url}</p>
-              <p>{candidate.email}</p>
-              <p>{candidate.company}</p>
-            </li>
-          ))}
+                  {candidate?.html_url && (
+                    <a
+                      href={candidate?.html_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {candidate?.login} {candidate?.bio}
+                    </a>
+                  )}
+                  <p>{candidate?.login}</p>
+                  <p>{candidate?.location}</p>
+                  <p>{candidate?.email}</p>
+                  <p>{candidate?.company}</p>
+                </li>
+              )
+            )
+          )}
         </ul>
       )}
     </div>
